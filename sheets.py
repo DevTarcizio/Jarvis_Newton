@@ -43,6 +43,8 @@ def read_data():
     except Exception as e:
         print(f"Erro ao acessar a planilha: {e}")
 
+    return compromissos_diários, compromissos_semanais, compromissos_mensais
+
 def write_data(data: Compromisso):
     try:
         planilha = client.open_by_key(ID_SHEETS)

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from dataclass import TipoData, Compromisso
-from sheets import write_data
+from main import send_daily_resume, send_monthly_resume, send_weekly_resume
+from sheets import write_data, read_data
 
 app = FastAPI()
 
@@ -30,3 +31,30 @@ def webhook(data: dict):
     write_data(compromisso)
 
     return {"status": "success"}
+
+
+@app.get("/cron/resume_daily")
+def resume_daily():
+
+    daily_compromissos = read_data()[0]
+    send_daily_resume(daily_compromissos)    
+
+    return {"message": "Daily resume endpoint"}
+
+
+@app.get("/cron/resume_weekly")
+def resume_weekly():
+
+    weekly_compromissos = read_data()[1]
+    send_weekly_resume(weekly_compromissos)    
+
+    return {"message": "Weekly resume endpoint"}
+
+
+@app.get("/cron/resume_monthly")
+def resume_monthly():
+
+    monthly_compromissos = read_data()[2]
+    send_monthly_resume(monthly_compromissos)    
+
+    return {"message": "Monthly resume endpoint"}

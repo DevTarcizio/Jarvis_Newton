@@ -9,16 +9,6 @@ MY_CHAT_ID = "5387408149"
 bot = telebot.TeleBot(TOKEN)
 
 
-def send_message_to_user_every_30_seconds():
-    while True:
-        try:
-            bot.send_message(MY_CHAT_ID, "Olá, estou aqui para te lembrar de algo importante!")
-        except Exception as e:
-            print(f"Erro ao enviar mensagem: {e}")
-
-        time.sleep(30)  # Aguarda 30 segundos antes de enviar a próxima mensagem
-
-
 @bot.message_handler(commands=['start'])
 def start(message:telebot.types.Message):
     bot.reply_to(message, "Olá, sou o Jarvis Newton, como posso te ajudar")
@@ -57,7 +47,47 @@ def process_compromisso(message:telebot.types.Message):
     else:
         bot.reply_to(message, "Ocorreu um erro ao enviar o compromisso. Por favor, tente novamente.")
 
-if __name__ == "__main__":
-    print("Iniciando o Jarvis Newton...")
+def send_daily_resume(compromissos: list):
 
+    message = "Agenda Diária:\n\n"
+
+    for compromisso in compromissos:
+        message += f"Data: {compromisso['Data']}\n"
+        message += f"Horário: {compromisso['Horário']}\n"
+        message += f"Tipo: {compromisso['Tipo']}\n"
+        message += f"Descrição: {compromisso['Descrição']}\n"
+        message += f"Status: {compromisso['Status']}\n"
+        message += f"Observações: {compromisso['Observações']}\n\n"
+
+    bot.send_message(MY_CHAT_ID, message)
+
+def send_weekly_resume(compromissos: list):
+
+    message = "Agenda Semanal:\n\n"
+
+    for compromisso in compromissos:
+        message += f"Data: {compromisso['Data']}\n"
+        message += f"Horário: {compromisso['Horário']}\n"
+        message += f"Tipo: {compromisso['Tipo']}\n"
+        message += f"Descrição: {compromisso['Descrição']}\n"
+        message += f"Status: {compromisso['Status']}\n"
+        message += f"Observações: {compromisso['Observações']}\n\n"
+
+    bot.send_message(MY_CHAT_ID, message)
+
+def send_monthly_resume(compromissos: list):
+
+    message = "Agenda Mensal:\n\n"
+
+    for compromisso in compromissos:
+        message += f"Data: {compromisso['Data']}\n"
+        message += f"Horário: {compromisso['Horário']}\n"
+        message += f"Tipo: {compromisso['Tipo']}\n"
+        message += f"Descrição: {compromisso['Descrição']}\n"
+        message += f"Status: {compromisso['Status']}\n"
+        message += f"Observações: {compromisso['Observações']}\n\n"
+
+    bot.send_message(MY_CHAT_ID, message)
+
+if __name__ == "__main__":
     bot.infinity_polling()
