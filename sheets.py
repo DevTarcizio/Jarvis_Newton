@@ -49,7 +49,7 @@ def write_data(data: Compromisso):
         aba = planilha.sheet1
 
         # Adiciona os dados na próxima linha disponível
-        aba.append_row(data)
+        aba.append_row([data.data.date_to_string(), data.horario, data.tipo.value, data.descricao, data.status.value, data.observacoes])
 
     except gspread.exceptions.APIError as api_error:
         print(f"Erro na API do Google Sheets: {api_error}")
