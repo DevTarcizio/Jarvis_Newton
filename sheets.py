@@ -1,4 +1,4 @@
-import gspread, datetime
+import gspread, datetime, os, json
 from google.oauth2.service_account import Credentials
 from dataclass import Compromisso, TipoEnum, StatusEnum
 
@@ -6,7 +6,10 @@ escopo = [
     "https://www.googleapis.com/auth/spreadsheets",
 ]
 
-credentials = Credentials.from_service_account_file("credentials.json", scopes=escopo)
+google_string = os.getenv("GOOGLE_CREDENTIALS")
+google_credentials = json.loads(google_string)
+
+credentials = Credentials.from_service_account_info(google_credentials, scopes=escopo)
 client = gspread.authorize(credentials)
 
 ID_SHEETS = "1_TxiLg264n0wU6K38bZgdmiMEm-jJYKQ2ejsjeIt1_Q"

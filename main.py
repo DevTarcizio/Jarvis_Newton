@@ -1,6 +1,6 @@
-import telebot, threading, time
+import telebot, threading, time, os
 
-TOKEN = "8660702518:AAFXlI_kBuZasM9aLI_PIX6pZ6TaEebEiH0"
+TOKEN = os.getenv("TELEGRAM_TOKEN")
 MY_CHAT_ID = "5387408149"
 
 bot = telebot.TeleBot(TOKEN)
