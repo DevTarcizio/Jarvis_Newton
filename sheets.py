@@ -1,5 +1,6 @@
 import gspread, datetime
 from google.oauth2.service_account import Credentials
+from dataclass import Compromisso, TipoEnum, StatusEnum
 
 escopo = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -39,7 +40,7 @@ def read_data():
     except Exception as e:
         print(f"Erro ao acessar a planilha: {e}")
 
-def write_data(data):
+def write_data(data: Compromisso):
     try:
         planilha = client.open_by_key(ID_SHEETS)
         aba = planilha.sheet1
