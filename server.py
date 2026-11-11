@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from dataclass import TipoData, Compromisso
-from main import send_daily_resume, send_monthly_resume, send_weekly_resume
+from bot_commands import send_daily_resume, send_monthly_resume, send_weekly_resume
 from sheets import write_data, read_data
 
 app = FastAPI()

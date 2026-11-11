@@ -100,6 +100,3 @@ def send_monthly_resume(compromissos: list):
         message += f"Observações: {compromisso['Observações']}\n\n"
 
     bot.send_message(MY_CHAT_ID, message)
-
-if __name__ == "__main__":
-    bot.infinity_polling()
