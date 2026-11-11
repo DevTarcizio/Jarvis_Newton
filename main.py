@@ -49,6 +49,10 @@ def process_compromisso(message:telebot.types.Message):
 
 def send_daily_resume(compromissos: list):
 
+    if compromissos is None or len(compromissos) == 0:
+        bot.send_message(MY_CHAT_ID, "Nenhum compromisso encontrado para hoje.")
+        return
+
     message = "Agenda Diária:\n\n"
 
     for compromisso in compromissos:
@@ -63,6 +67,10 @@ def send_daily_resume(compromissos: list):
 
 def send_weekly_resume(compromissos: list):
 
+    if compromissos is None or len(compromissos) == 0:
+        bot.send_message(MY_CHAT_ID, "Nenhum compromisso encontrado para esta semana.")
+        return
+
     message = "Agenda Semanal:\n\n"
 
     for compromisso in compromissos:
@@ -76,6 +84,10 @@ def send_weekly_resume(compromissos: list):
     bot.send_message(MY_CHAT_ID, message)
 
 def send_monthly_resume(compromissos: list):
+
+    if compromissos is None or len(compromissos) == 0:
+        bot.send_message(MY_CHAT_ID, "Nenhum compromisso encontrado para este mês.")
+        return
 
     message = "Agenda Mensal:\n\n"
 

@@ -16,25 +16,27 @@ ID_SHEETS = "1_TxiLg264n0wU6K38bZgdmiMEm-jJYKQ2ejsjeIt1_Q"
 
 # Lógica Principal
 def read_data():
+    compromissos_diários = []
+    compromissos_semanais = []
+    compromissos_mensais = []
+
     try:
         planilha = client.open_by_key(ID_SHEETS)
         aba = planilha.sheet1
 
-        compromissos_diários = []
-        compromissos_semanais = []
-        compromissos_mensais = []
+        dia_atual = datetime.date.today()
 
         registros = aba.get_all_records(head=2, expected_headers=["Data", "Horário", "Tipo", "Descrição", "Status", "Observações"])      
         for registro in registros:
             data_registro = datetime.datetime.strptime(registro["Data"], "%d/%m/%Y").date()
 
-            if data_registro == datetime.date.today():
+            if data_registro == dia_atual:
                 compromissos_diários.append(registro)
 
-            elif data_registro <= datetime.date.today() + datetime.timedelta(days=6):
+            elif data_registro <= dia_atual + datetime.timedelta(days=6):
                 compromissos_semanais.append(registro)
 
-            elif data_registro.month == datetime.date.today().month and data_registro >= datetime.date.today():
+            elif data_registro.month == dia_atual.month and data_registro >= dia_atual:
                 compromissos_mensais.append(registro)
 
     except gspread.exceptions.APIError as api_error:
