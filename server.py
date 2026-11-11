@@ -12,19 +12,20 @@ def read_root():
 def webhook(data: dict):
     print("Dados recebidos do webhook:", data)
 
-    new_data : TipoData = {}
+    new_data = TipoData(0, 0, 0)
 
-    new_data.day = data["data"].split("/")[0]
-    new_data.month = data["data"].split("/")[1]
-    new_data.year = data["data"].split("/")[2]
+    new_data.day = int(data["data"].split("/")[0])
+    new_data.month = int(data["data"].split("/")[1])
+    new_data.year = int(data["data"].split("/")[2])
 
-    compromisso : Compromisso = {}
-    compromisso.data = new_data
-    compromisso.horario = data["horario"]
-    compromisso.tipo = data["tipo"]
-    compromisso.descricao = data["descricao"]
-    compromisso.status = data["status"]
-    compromisso.observacoes = data["observacoes"]
+    compromisso = Compromisso(
+        data=new_data,
+        horario=data["horario"],
+        tipo=data["tipo"],
+        descricao=data["descricao"],
+        status=data["status"],
+        observacoes=data["observacoes"]
+    )
 
     write_data(compromisso)
 
